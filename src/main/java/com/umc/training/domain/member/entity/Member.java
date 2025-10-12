@@ -58,6 +58,7 @@ public class Member extends BaseEntity {
 
     private LocalDate inactiveDate;
 
+    @Column(name = "point", nullable = false)
     @ColumnDefault("0")
     private Integer point;
 
