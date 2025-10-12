@@ -1,5 +1,8 @@
 package com.example.spring_boot_a.domain.entity;
 
+import com.example.spring_boot_a.domain.entity.enums.AddressGu;
+import com.example.spring_boot_a.domain.entity.enums.Gender;
+import com.example.spring_boot_a.domain.entity.enums.SocialLoginType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,8 +19,8 @@ import java.util.Set;
                 @Index(name = "ix_user_phone", columnList = "phoneNumber")
         },
         uniqueConstraints = {
-                @UniqueConstraint(name = "uq_user_email", columnNames = "email"),
-                @UniqueConstraint(name = "uq_user_phone", columnNames = "phoneNumber")
+                @UniqueConstraint(name = "uq_user_email_phone",
+                        columnNames = {"email", "phoneNumber"})
         })
 @Getter @Setter
 public class User {
@@ -46,7 +49,7 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
-    private SocialType socialType;
+    private SocialLoginType socialType;
 
     @Column(nullable = false)
     private Integer point = 0;
