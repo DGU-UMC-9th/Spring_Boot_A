@@ -74,7 +74,4 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviewList = new ArrayList<>();
 
-    public void encodePassword(String password){
-        this.password = password;
-    }
 }
