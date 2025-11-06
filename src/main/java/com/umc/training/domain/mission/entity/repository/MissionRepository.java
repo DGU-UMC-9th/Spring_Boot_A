@@ -40,9 +40,9 @@ public interface MissionRepository extends Repository<Mission, Long> {
     @Query(
             value = "SELECT m " +
                     "FROM MemberMission m " +
-                    "left join fetch Store " +
+                    "left join fetch Store s " +
                     "left join fetch Mission " +
-                    "WHERE Store.region.id = :region_id " +
+                    "WHERE s.region.id = :region_id " +
                     "AND m.member.id IS NULL " +
                     "AND m.status = com.umc.training.domain.mission.entity.enums.MissionStatus.IN_THE_WORKS " +
                     "ORDER BY m.createdAt DESC",
