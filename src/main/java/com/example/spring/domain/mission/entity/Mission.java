@@ -5,6 +5,8 @@ import com.example.spring.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity // 이 클래스가 JPA의 엔티티
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 기본 생성자 자동 생성
@@ -29,4 +31,7 @@ public class Mission extends BaseEntity {
 
     @Column(name = "point")
     private Long point;
+
+    @Column(name = "expired_at")
+    private LocalDateTime expiredAt;
 }
