@@ -1,6 +1,5 @@
 package com.example.spring_boot_a.service;
 
-import com.example.spring_boot_a.api.review.dto.*;
 import com.example.spring_boot_a.domain.entity.*;
 import com.example.spring_boot_a.domain.entity.etc.Reply;
 import com.example.spring_boot_a.domain.entity.etc.ReviewPhoto;
@@ -47,7 +46,6 @@ public class ReviewService {
                 .orElseThrow(() -> new EntityNotFoundException("store not found"));
 
         Review r = new Review();
-        r.setUser(user);
         r.setStore(store);
         r.setStar(req.star());
         r.setContent(req.content());
