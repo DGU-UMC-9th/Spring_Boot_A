@@ -1,6 +1,7 @@
 package com.example.spring_boot_a.domain.entity;
 
 import com.example.spring_boot_a.domain.entity.enums.TermType;
+import com.example.spring_boot_a.domain.entity.user.UserTerm;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
