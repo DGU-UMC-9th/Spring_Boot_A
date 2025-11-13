@@ -1,4 +1,4 @@
-package com.example.demo.domain.review.dto.ReviewRequestDTO;
+package com.example.demo.domain.review.dto;
 
 public class ReviewResponseDTO {
 }
