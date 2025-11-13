@@ -4,7 +4,8 @@ public enum FoodCategory {
     KOREAN("한식"),
     WESTERN("양식"),
     CHINESE("중식"),
-    JAPANESE("일식");
+    JAPANESE("일식"),
+    ETC("그외");
 
     private final String description;
 
