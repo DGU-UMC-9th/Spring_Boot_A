@@ -26,12 +26,16 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "store_id")
     private Store store;
 
-    @Column(name = "body", nullable = false, length = 500)
-    private String body;
+    @Column(name = "contents", nullable = false, length = 500)
+    private String contents;
 
     @Column(name = "score", nullable = false)
     private Float score;
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
     private List<ReviewImage> reviewImageList;
+
+    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
+    private List<Reply> replyList;
+
 }
