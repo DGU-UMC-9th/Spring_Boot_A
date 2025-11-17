@@ -4,6 +4,7 @@ import com.example.demo.domain.mission.entity.Mission;
 import com.example.demo.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -22,6 +23,9 @@ public class MemberMission extends BaseEntity {
     @Builder.Default
     private Boolean isComplete = false;
 
+    @Column(name = "completed_at")
+    private LocalDateTime completedAt;
+
     // 연관관계
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mission_id", nullable = false)
@@ -34,5 +38,6 @@ public class MemberMission extends BaseEntity {
     // 비즈니스 메서드
     public void completeMission() {
         this.isComplete = true;
+        this.completedAt = LocalDateTime.now();
     }
 }
