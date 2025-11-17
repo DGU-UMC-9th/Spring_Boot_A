@@ -1,4 +1,11 @@
 package com.example.demo.global.apiPayload.exception;
 
-public class GeneralException {
+import com.example.demo.global.apiPayload.code.BaseErrorCode;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
+public class GeneralException extends RuntimeException {
+    private final BaseErrorCode code;
 }
