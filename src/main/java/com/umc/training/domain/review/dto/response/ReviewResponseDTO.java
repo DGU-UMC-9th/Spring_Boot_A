@@ -12,7 +12,7 @@ public record ReviewResponseDTO(
         List<ReplyResponse> replies
 
 ) {
-    public ReviewResponseDTO(Reply reply, Review review) {
+    public ReviewResponseDTO(Review review) {
         this (
                 review.getId(),
                 review.getContents(),

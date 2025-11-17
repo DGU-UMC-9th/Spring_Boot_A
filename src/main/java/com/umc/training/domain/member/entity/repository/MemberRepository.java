@@ -8,4 +8,5 @@ public interface MemberRepository extends Repository<Member, Long> {
     // 미션 2
     Member findById(Member member);
 
+    Integer countById(Long id);
 }
