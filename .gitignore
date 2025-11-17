@@ -1,20 +1,11 @@
-# Gradle
+HELP.md
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-# IntelliJ IDEA
-.idea/
-*.iws
-*.iml
-*.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
-
-# Eclipse
+### STS ###
 .apt_generated
 .classpath
 .factorypath
@@ -26,18 +17,24 @@ bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
-# NetBeans
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
 
-# VS Code
+### VS Code ###
 .vscode/
 
-# Mac
-.DS_Store
-
-# Windows
-Thumbs.db
+### QueryDSL ###
+/build/generated/
