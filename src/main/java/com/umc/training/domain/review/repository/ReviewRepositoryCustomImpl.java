@@ -19,7 +19,7 @@ public class ReviewRepositoryCustomImpl implements ReviewRepositoryCustom {
     public List<Review> findByUserId(Long userId, String query, String type) {
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
 
-        BooleanBuilder builder = new BooleanBuilder();
+        BooleanBuil builder = new BooleanBuilder();
 
         if(type.equals("star")){
             builder.and(review.score.goe(Float.parseFloat(query)));
