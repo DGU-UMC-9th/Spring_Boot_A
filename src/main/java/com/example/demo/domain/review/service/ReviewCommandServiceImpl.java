@@ -7,6 +7,8 @@ import com.example.demo.domain.review.entity.Review;
 import com.example.demo.domain.review.repository.ReviewRepository;
 import com.example.demo.domain.store.entity.Store;
 import com.example.demo.domain.store.repository.StoreRepository;
+import com.example.demo.global.apiPayload.code.status.ErrorStatus;
+import com.example.demo.global.apiPayload.exception.GeneralException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,11 +24,13 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
 
     @Override
     public Review createReview(Long memberId, Long storeId, ReviewRequestDTO.CreateReviewDTO request) {
+        // 회원 조회 - 없으면 예외
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new RuntimeException("회원을 찾을 수 없습니다."));
+                .orElseThrow(() -> new GeneralException(ErrorStatus.MEMBER_NOT_FOUND));
 
+        // 가게 조회 - 없으면 예외
         Store store = storeRepository.findById(storeId)
-                .orElseThrow(() -> new RuntimeException("가게를 찾을 수 없습니다."));
+                .orElseThrow(() -> new GeneralException(ErrorStatus.STORE_NOT_FOUND));
 
         Review review = Review.builder()
                 .member(member)

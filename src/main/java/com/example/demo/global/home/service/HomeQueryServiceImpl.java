@@ -5,6 +5,8 @@ import com.example.demo.domain.member.repository.MemberMissionRepository;
 import com.example.demo.domain.member.repository.MemberRepository;
 import com.example.demo.domain.mission.entity.Mission;
 import com.example.demo.domain.mission.repository.MissionRepository;
+import com.example.demo.global.apiPayload.code.status.ErrorStatus;
+import com.example.demo.global.apiPayload.exception.GeneralException;
 import com.example.demo.global.enums.Region;
 import com.example.demo.global.home.dto.HomeResponseDTO;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +33,7 @@ public class HomeQueryServiceImpl implements HomeQueryService {
     public HomeResponseDTO.HomeDTO getHomeInfo(Long memberId, Region region, Pageable pageable) {
         // 회원 정보 조회
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new RuntimeException("회원을 찾을 수 없습니다."));
+                .orElseThrow(() -> new GeneralException(ErrorStatus.MEMBER_NOT_FOUND));
 
         // 현재 지역에서 진행중인 미션 개수
         Long currentMissions = memberMissionRepository.countChallengingMissionsByRegion(
