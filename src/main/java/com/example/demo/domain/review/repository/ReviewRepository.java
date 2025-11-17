@@ -9,11 +9,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ReviewRepository extends JpaRepository<Review, Long> {
+public interface ReviewRepository extends JpaRepository<Review, Long>, ReviewRepositoryCustom {
 
-    // 회원이 작성한 리뷰 조회
+    // 기존 메서드들
     Page<Review> findByMemberOrderByCreatedAtDesc(Member member, Pageable pageable);
-
-    // 가게의 리뷰 조회
     Page<Review> findByStoreOrderByCreatedAtDesc(Store store, Pageable pageable);
 }
