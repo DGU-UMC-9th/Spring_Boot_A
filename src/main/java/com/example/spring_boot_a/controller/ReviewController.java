@@ -1,6 +1,5 @@
 package com.example.spring_boot_a.controller;
 
-import com.example.spring_boot_a.api.review.dto.*;
 import com.example.spring_boot_a.domain.entity.review.dto.ReviewCreateRequest;
 import com.example.spring_boot_a.domain.entity.review.dto.ReviewResponse;
 import com.example.spring_boot_a.domain.entity.review.dto.StarSummaryResponse;

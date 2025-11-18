@@ -3,6 +3,7 @@ package com.example.spring_boot_a.domain.entity.review;
 import com.example.spring_boot_a.domain.entity.etc.ReviewPhoto;
 import com.example.spring_boot_a.domain.entity.Store;
 import com.example.spring_boot_a.domain.entity.etc.Reply;
+import com.example.spring_boot_a.domain.entity.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +29,10 @@ public class Review {
     @ManyToOne(optional = false) @JoinColumn(name = "store_id")
     private Store store;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id")
+    private User user;
+
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ReviewPhoto> photos = new HashSet<>();
 

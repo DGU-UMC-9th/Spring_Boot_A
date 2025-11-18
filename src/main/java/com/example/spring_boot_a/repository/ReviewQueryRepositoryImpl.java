@@ -1,9 +1,9 @@
 package com.example.spring_boot_a.repository;
 
+import com.example.spring_boot_a.domain.entity.etc.QReply;
+import com.example.spring_boot_a.domain.entity.etc.QReviewPhoto;
+import com.example.spring_boot_a.domain.entity.review.QReview;
 import com.example.spring_boot_a.domain.entity.review.dto.MyReviewItemDto;
-import com.example.spring_boot_a.domain.entity.QReply;
-import com.example.spring_boot_a.domain.entity.QReview;
-import com.example.spring_boot_a.domain.entity.QReviewPhoto;
 import com.example.spring_boot_a.domain.entity.QStore;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
