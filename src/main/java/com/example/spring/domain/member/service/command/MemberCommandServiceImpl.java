@@ -7,11 +7,15 @@ import com.example.spring.domain.member.entity.Member;
 import com.example.spring.domain.member.entity.mapping.MemberFood;
 import com.example.spring.domain.member.entity.mapping.MemberMission;
 import com.example.spring.domain.member.exception.FoodException;
+import com.example.spring.domain.member.exception.MemberException;
 import com.example.spring.domain.member.exception.code.FoodErrorCode;
+import com.example.spring.domain.member.exception.code.MemberErrorCode;
 import com.example.spring.domain.member.repository.FoodRepository;
 import com.example.spring.domain.member.repository.MemberFoodRepository;
 import com.example.spring.domain.member.repository.MemberMissionRepository;
 import com.example.spring.domain.member.repository.MemberRepository;
+import com.example.spring.domain.mission.exception.MissionException;
+import com.example.spring.domain.mission.exception.code.MissionErrorCode;
 import com.example.spring.domain.mission.repository.MissionRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -66,6 +70,16 @@ public class MemberCommandServiceImpl implements MemberCommandService{
     public MemberResDTO.newMissionDTO newMission(
             MemberReqDTO.newMissionDTO dto
     ) {
+        // 1. 멤버 존재 여부 검증
+        if (!memberRepository.existsById(dto.memberId())) {
+            throw new MemberException(MemberErrorCode.NOT_FOUND);
+        }
+
+        // 2. 미션 존재 여부 검증
+        if (!missionRepository.existsById(dto.missionId())) {
+            throw new MissionException(MissionErrorCode.NOT_FOUND);
+        }
+
         var memberRef = memberRepository.getReferenceById(dto.memberId());
         var missionRef = missionRepository.getReferenceById(dto.missionId());
         MemberMission memberMission = MemberConverter.toMemberMission(memberRef, missionRef);
