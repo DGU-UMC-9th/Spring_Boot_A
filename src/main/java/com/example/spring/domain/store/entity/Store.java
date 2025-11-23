@@ -1,7 +1,7 @@
 package com.example.spring.domain.store.entity;
 
 import com.example.spring.domain.member.enums.Status;
-import com.example.spring.domain.member.enums.CategoryName;
+import com.example.spring.domain.member.enums.FoodName;
 import com.example.spring.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -36,7 +36,7 @@ public class Store extends BaseEntity {
 
     @Column(name = "category", nullable = false)
     @Enumerated(EnumType.STRING)
-    private CategoryName category;
+    private FoodName category;
 
     @Column(name = "opening_hours", length = 30)
     private String openingHours;

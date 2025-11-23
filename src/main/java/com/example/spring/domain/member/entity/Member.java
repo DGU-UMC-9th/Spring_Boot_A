@@ -50,7 +50,8 @@ public class Member extends BaseEntity {
     private String phoneNumber;
 
     @Column(name = "point")
-    private Long point;
+    @Builder.Default
+    private Integer point = 0;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)

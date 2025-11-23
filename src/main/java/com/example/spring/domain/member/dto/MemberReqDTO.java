@@ -1,0 +1,33 @@
+package com.example.spring.domain.member.dto;
+
+import com.example.spring.domain.member.enums.Gender;
+import com.example.spring.global.annotation.ExistFoods;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+import java.time.LocalDate;
+import java.util.List;
+
+public class MemberReqDTO {
+    public record JoinDTO(
+            @NotBlank
+            String name,
+            @NotNull
+            Gender gender,
+            @NotNull
+            LocalDate birth,
+            @NotNull
+            String address,
+            String email,
+            String phoneNumber,
+            @ExistFoods
+            List<Long> preferCategory
+    ){}
+
+    public record newMissionDTO(
+            @NotNull
+            Long memberId,
+            @NotNull
+            Long missionId
+    ){}
+}

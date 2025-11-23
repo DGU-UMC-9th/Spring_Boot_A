@@ -1,4 +1,4 @@
-package com.example.spring.domain.review.service;
+package com.example.spring.domain.review.service.query;
 
 import com.example.spring.domain.review.converter.ReviewConverter;
 import com.example.spring.domain.review.dto.res.ReviewResDTO;
@@ -8,11 +8,8 @@ import com.example.spring.domain.review.exception.ReviewException;
 import com.example.spring.domain.review.exception.code.ReviewErrorCode;
 import com.example.spring.domain.review.repository.ReviewRepository;
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -23,7 +20,7 @@ public class ReviewQueryService {
     private final ReviewRepository reviewRepository;
 
     public List<ReviewResDTO.ReviewDTO> searchMyReview(
-            Long memberId, Long storeId, Long rating
+            Long memberId, Long storeId, Integer rating
     ){
         if (memberId == null || memberId <= 0) {
             throw new ReviewException(ReviewErrorCode.SEARCH_REVIEW_EXCEPTION);

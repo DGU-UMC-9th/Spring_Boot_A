@@ -23,4 +23,10 @@ public class ReviewResDTO {
     public static class SearchMyReviewDTO {
         private List<ReviewDTO> reviews;
     }
+
+    @Builder
+    public static class WriteDTO {
+        private long id;
+        private LocalDateTime createdAt;
+    }
 }

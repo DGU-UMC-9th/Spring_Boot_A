@@ -1,7 +1,7 @@
 package com.example.spring.domain.member.entity.mapping;
 
 import com.example.spring.domain.member.entity.Member;
-import com.example.spring.domain.member.entity.Category;
+import com.example.spring.domain.member.entity.Food;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,8 +10,8 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 기본 생성자 자동 생성
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-@Table(name = "member_category") // DB 테이블 정의
-public class MemberCategory {
+@Table(name = "member_food") // DB 테이블 정의
+public class MemberFood {
     @Id // DB의 PK 의미
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 생성 전략 선택
     private Long id;
@@ -23,6 +23,6 @@ public class MemberCategory {
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @JoinColumn(name = "food_id")
+    private Food food;
 }

@@ -1,6 +1,6 @@
 package com.example.spring.domain.member.entity;
 
-import com.example.spring.domain.member.enums.CategoryName;
+import com.example.spring.domain.member.enums.FoodName;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,8 +9,8 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 기본 생성자 자동 생성
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-@Table(name = "category") // DB 테이블 정의
-public class Category {
+@Table(name = "food") // DB 테이블 정의
+public class Food {
     @Id // DB의 PK 의미
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 생성 전략 선택
     private Long id;
@@ -19,5 +19,5 @@ public class Category {
     // NOT NULL 설정, 글자수 제한 등 세부 설정
     @Column(name = "name")
     @Enumerated(EnumType.STRING)
-    private CategoryName name;
+    private FoodName name;
 }
