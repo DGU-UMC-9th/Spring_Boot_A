@@ -1,7 +1,6 @@
 package com.example.spring.domain.review.repository;
 
 import com.example.spring.domain.review.entity.Review;
-
 import java.util.List;
 import com.querydsl.core.types.Predicate;
 
