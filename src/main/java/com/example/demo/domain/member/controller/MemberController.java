@@ -4,6 +4,8 @@ import com.example.demo.domain.member.converter.MemberConverter;
 import com.example.demo.domain.member.dto.MemberResponseDTO;
 import com.example.demo.domain.member.entity.Member;
 import com.example.demo.domain.member.service.MemberQueryService;
+import com.example.demo.global.apiPayload.ApiResponse;
+import com.example.demo.global.apiPayload.code.status.SuccessStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +21,11 @@ public class MemberController {
      * GET /api/members/{memberId}/mypage
      */
     @GetMapping("/{memberId}/mypage")
-    public MemberResponseDTO.MyPageDTO getMyPage(@PathVariable Long memberId) {
+    public ApiResponse<MemberResponseDTO.MyPageDTO> getMyPage(@PathVariable Long memberId) {
         Member member = memberQueryService.getMyPageInfo(memberId);
-        return MemberConverter.toMyPageDTO(member);
+        return ApiResponse.of(
+                SuccessStatus.MEMBER_OK,
+                MemberConverter.toMyPageDTO(member)
+        );
     }
 }

@@ -16,19 +16,7 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
     private final ReviewRepository reviewRepository;
 
     @Override
-    public Page<Review> getMyReviews(
-            Long memberId,
-            Long storeId,
-            Float minStar,
-            Float maxStar,
-            Pageable pageable
-    ) {
-        return reviewRepository.findMyReviewsWithFilters(
-                memberId,
-                storeId,
-                minStar,
-                maxStar,
-                pageable
-        );
+    public Page<Review> getMyReviews(Long memberId, Long storeId, Float minStar, Float maxStar, Pageable pageable) {
+        return reviewRepository.findMyReviewsWithFilters(memberId, storeId, minStar, maxStar, pageable);
     }
 }
