@@ -36,4 +36,19 @@ public class MissionResponseDTO {
         private LocalDateTime completedAt;
         private String dDay;  // D-5 형식
     }
+
+    // 미션 도전 결과 DTO
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ChallengeResultDTO {
+        private Long memberMissionId;
+        private Long missionId;
+        private String storeName;
+        private String missionContent;
+        private Integer point;
+        private LocalDate deadline;
+        private LocalDateTime startedAt;
+    }
 }

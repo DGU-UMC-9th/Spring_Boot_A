@@ -2,6 +2,7 @@ package com.example.demo.domain.member.repository;
 
 import com.example.demo.domain.member.entity.Member;
 import com.example.demo.domain.member.entity.MemberMission;
+import com.example.demo.domain.mission.entity.Mission;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -47,4 +48,7 @@ public interface MemberMissionRepository extends JpaRepository<MemberMission, Lo
             @Param("memberId") Long memberId,
             @Param("region") com.example.demo.global.enums.Region region
     );
+
+    // 중복 도전 체크 (미완료 상태)
+    boolean existsByMemberAndMissionAndIsCompleteFalse(Member member, Mission mission);
 }
