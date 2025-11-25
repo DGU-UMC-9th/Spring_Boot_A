@@ -15,7 +15,7 @@ public interface ReviewRepositoryCustom {
      * @param pageable 페이징 정보
      * @return 리뷰 목록
      */
-    Page<Review> findMyReviewsWithFilters(
+    Page<Review> findMyReviews(
             Long memberId,
             Long storeId,
             Float minStar,
