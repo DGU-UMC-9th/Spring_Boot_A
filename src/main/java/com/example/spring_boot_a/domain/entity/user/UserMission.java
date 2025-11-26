@@ -1,7 +1,7 @@
 package com.example.spring_boot_a.domain.entity.user;
 
 import com.example.spring_boot_a.domain.entity.enums.UserMissionStatus;
-import com.example.spring_boot_a.domain.entity.etc.Mission;
+import com.example.spring_boot_a.domain.entity.mission.Mission;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

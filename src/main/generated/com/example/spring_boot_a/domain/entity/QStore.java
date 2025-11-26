@@ -2,6 +2,7 @@ package com.example.spring_boot_a.domain.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
+import com.example.spring_boot_a.domain.entity.mission.Mission;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
@@ -28,7 +29,7 @@ public class QStore extends EntityPathBase<Store> {
 
     public final NumberPath<Long> managerNumber = createNumber("managerNumber", Long.class);
 
-    public final SetPath<com.example.spring_boot_a.domain.entity.etc.Mission, com.example.spring_boot_a.domain.entity.etc.QMission> missions = this.<com.example.spring_boot_a.domain.entity.etc.Mission, com.example.spring_boot_a.domain.entity.etc.QMission>createSet("missions", com.example.spring_boot_a.domain.entity.etc.Mission.class, com.example.spring_boot_a.domain.entity.etc.QMission.class, PathInits.DIRECT2);
+    public final SetPath<Mission, com.example.spring_boot_a.domain.entity.etc.QMission> missions = this.<Mission, com.example.spring_boot_a.domain.entity.etc.QMission>createSet("missions", Mission.class, com.example.spring_boot_a.domain.entity.etc.QMission.class, PathInits.DIRECT2);
 
     public final StringPath name = createString("name");
 

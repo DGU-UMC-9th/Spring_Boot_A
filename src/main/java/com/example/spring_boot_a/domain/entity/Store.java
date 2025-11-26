@@ -1,7 +1,7 @@
 package com.example.spring_boot_a.domain.entity;
 
 import com.example.spring_boot_a.domain.entity.etc.Location;
-import com.example.spring_boot_a.domain.entity.etc.Mission;
+import com.example.spring_boot_a.domain.entity.mission.Mission;
 import com.example.spring_boot_a.domain.entity.review.Review;
 import jakarta.persistence.*;
 import lombok.Getter;

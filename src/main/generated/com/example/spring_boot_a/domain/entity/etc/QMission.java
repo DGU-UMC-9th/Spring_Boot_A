@@ -2,6 +2,7 @@ package com.example.spring_boot_a.domain.entity.etc;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
+import com.example.spring_boot_a.domain.entity.mission.Mission;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;

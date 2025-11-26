@@ -1,4 +1,4 @@
-package com.example.spring_boot_a.domain.entity.etc;
+package com.example.spring_boot_a.domain.entity.mission;
 
 import com.example.spring_boot_a.domain.entity.Store;
 import com.example.spring_boot_a.domain.entity.user.UserMission;
