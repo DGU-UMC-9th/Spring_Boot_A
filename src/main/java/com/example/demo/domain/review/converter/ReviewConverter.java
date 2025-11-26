@@ -58,4 +58,28 @@ public class ReviewConverter {
                         .build())
                 .collect(Collectors.toList());
     }
+
+    public static ReviewResponseDTO.ReviewPreViewListDTO toReviewPreViewListDTO(Page<Review> reviewPage) {
+        List<ReviewResponseDTO.ReviewPreViewDTO> reviewList = reviewPage.getContent().stream()
+                .map(ReviewConverter::toReviewPreViewDTO)
+                .toList();
+
+        return ReviewResponseDTO.ReviewPreViewListDTO.builder()
+                .reviewList(reviewList)
+                .listSize(reviewPage.getSize())
+                .totalPage(reviewPage.getTotalPages())
+                .totalElements(reviewPage.getTotalElements())
+                .isFirst(reviewPage.isFirst())
+                .isLast(reviewPage.isLast())
+                .build();
+    }
+
+    public static ReviewResponseDTO.ReviewPreViewDTO toReviewPreViewDTO(Review review) {
+        return ReviewResponseDTO.ReviewPreViewDTO.builder()
+                .storeName(review.getStore().getName())
+                .score(review.getStar())
+                .body(review.getContent())
+                .createdAt(review.getCreatedAt().toLocalDate())
+                .build();
+    }
 }
