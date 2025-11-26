@@ -3,7 +3,10 @@ package com.example.spring_boot_a.global.apiPayload.code;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -47,4 +50,13 @@ public class ApiResponse<T> {
     public static <T> ApiResponse<T> onFailure(BaseErrorCode code) {
         return new ApiResponse<>(false, code.getCode(), code.getMessage(), null);
     }
+
+    @Builder
+    public record PageResponse<T>(
+            List<T> content,
+            int page,
+            int size,
+            long totalElements,
+            int totalPages
+    ){}
 }
