@@ -4,10 +4,13 @@ import com.example.spring_boot_a.domain.entity.*;
 import com.example.spring_boot_a.domain.entity.etc.Reply;
 import com.example.spring_boot_a.domain.entity.etc.ReviewPhoto;
 import com.example.spring_boot_a.domain.entity.review.Review;
+import com.example.spring_boot_a.domain.entity.review.dto.MyReviewResponse;
 import com.example.spring_boot_a.domain.entity.review.dto.ReviewCreateRequest;
 import com.example.spring_boot_a.domain.entity.review.dto.ReviewResponse;
 import com.example.spring_boot_a.domain.entity.review.dto.StarSummaryResponse;
+import com.example.spring_boot_a.domain.entity.review.dto.converter.MyReviewConverter;
 import com.example.spring_boot_a.domain.entity.user.User;
+import com.example.spring_boot_a.global.apiPayload.code.ApiResponse;
 import com.example.spring_boot_a.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.*;
@@ -20,6 +23,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional(readOnly = true)
 public class ReviewService {
+
+    private static final int PAGE_SIZE = 10;
+
     private final ReviewRepository reviewRepository;
     private final ReviewPhotoRepository photoRepository;
     private final ReplyRepository replyRepository;
@@ -61,6 +67,25 @@ public class ReviewService {
             }
         }
         return saved.getReviewId();
+    }
+
+    public ApiResponse.PageResponse<MyReviewResponse> getMyReviews(Long userId, int pageIndex) {
+
+        var pageable = PageRequest.of(
+                pageIndex,
+                PAGE_SIZE,
+                Sort.by(Sort.Direction.DESC, "createdAt")
+        );
+
+        var reviewPage = reviewRepository.findByUser_UserId(userId, pageable);
+
+        return ApiResponse.PageResponse.<MyReviewResponse>builder()
+                .content(MyReviewConverter.fromList(reviewPage.getContent()))
+                .page(pageIndex + 1)
+                .size(PAGE_SIZE)
+                .totalElements(reviewPage.getTotalElements())
+                .totalPages(reviewPage.getTotalPages())
+                .build();
     }
 
     public Page<ReviewResponse> getStoreReviews(Long storeId, Integer starBucket, Pageable pageable) {

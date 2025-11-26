@@ -7,6 +7,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
+    Page<Review> findByUser_UserId(Long userId, Pageable pageable);
+
 
     Page<Review> findByStore_StoreIdOrderByCreatedAtDesc(Long storeId, Pageable pageable);
 

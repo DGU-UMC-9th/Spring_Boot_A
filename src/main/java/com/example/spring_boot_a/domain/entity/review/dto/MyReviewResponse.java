@@ -3,7 +3,7 @@ package com.example.spring_boot_a.domain.entity.review.dto;
 
 import lombok.Builder;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 
 @Builder
@@ -12,7 +12,8 @@ public record MyReviewResponse(
         String storeName,
         Double rating,
         String content,
-        LocalDateTime createdAt,
+        Instant createdAt,
         List<String> photoUrls,
-        String ownerReply
+        String ownerReply,
+        Instant ownerReplyCreatedAt
 ) {}

@@ -1,9 +1,14 @@
 package com.example.spring_boot_a.controller;
 
+import com.example.spring_boot_a.domain.entity.review.dto.MyReviewResponse;
 import com.example.spring_boot_a.domain.entity.review.dto.ReviewCreateRequest;
 import com.example.spring_boot_a.domain.entity.review.dto.ReviewResponse;
 import com.example.spring_boot_a.domain.entity.review.dto.StarSummaryResponse;
+import com.example.spring_boot_a.global.apiPayload.code.ApiResponse;
+import com.example.spring_boot_a.global.paging.ValidPage;
 import com.example.spring_boot_a.service.ReviewService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.*;
 import org.springframework.web.bind.annotation.*;
@@ -52,5 +57,20 @@ public class ReviewController {
     @GetMapping("/stores/{storeId}/reviews/star-summary")
     public StarSummaryResponse getStarSummary(@PathVariable Long storeId) {
         return reviewService.getStarSummary(storeId);
+    }
+
+    @Operation(
+            summary = "내가 작성한 리뷰 목록",
+            description = "한 페이지에 10개씩, page는 1 이상의 정수 (0, 음수 전달 시 에러)"
+    )
+    @GetMapping("/me")
+    public ApiResponse<ApiResponse.PageResponse<MyReviewResponse>> getMyReviews(
+
+            @Parameter(description = "유저 ID (과제용)") @RequestParam Long userId,
+            @Parameter(description = "1 이상 page 번호")
+            @RequestParam @Valid @ValidPage String page
+    ) {
+        int pageIndex = Integer.parseInt(page) - 1; // 0-base로 변환
+        return ApiResponse.onSuccess(reviewService.getMyReviews(userId, pageIndex));
     }
 }
