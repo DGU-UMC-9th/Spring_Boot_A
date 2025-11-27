@@ -2,7 +2,6 @@ package com.umc.training.domain.mission.entity.repository;
 
 import com.umc.training.domain.member.entity.Member;
 import com.umc.training.domain.member.entity.MemberMission;
-import com.umc.training.domain.member.entity.enums.MemberStatus;
 import com.umc.training.domain.mission.entity.Mission;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,7 +9,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
+
 public interface MissionRepository extends Repository<Mission, Long> {
+    
+    Optional<Mission> findById(Long id);
 
 
     // 미션 3

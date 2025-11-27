@@ -29,7 +29,8 @@ public class Store extends BaseEntity {
     private String address;
 
     @Column(name = "score", nullable = false)
-    private Float score;
+    @Builder.Default
+    private Float score = 0.0f;
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     private List<Mission> missionList = new ArrayList<>();
