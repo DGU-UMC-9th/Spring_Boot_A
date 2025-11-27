@@ -1,8 +1,7 @@
-package com.umc.training.global.entity.apiPayload;
+package com.umc.training.global.apiPayload;
 
-import com.umc.training.global.entity.apiPayload.code.BaseErrorCode;
-import com.umc.training.global.entity.apiPayload.code.BaseSuccessCode;
-import com.umc.training.global.entity.apiPayload.code.GeneralSuccessCode;
+import com.umc.training.global.apiPayload.code.BaseErrorCode;
+import com.umc.training.global.apiPayload.code.GeneralSuccessCode;
 import lombok.Getter;
 
 @Getter

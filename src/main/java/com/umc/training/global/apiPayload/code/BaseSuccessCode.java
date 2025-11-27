@@ -1,11 +1,10 @@
-package com.umc.training.global.entity.apiPayload.code;
+package com.umc.training.global.apiPayload.code;
 
 import org.springframework.http.HttpStatus;
 
-public interface BaseErrorCode {
+public interface BaseSuccessCode {
 
     HttpStatus getStatus();
     String getCode();
     String getMessage();
-
 }

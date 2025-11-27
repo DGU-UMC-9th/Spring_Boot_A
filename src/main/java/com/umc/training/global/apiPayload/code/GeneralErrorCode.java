@@ -1,4 +1,4 @@
-package com.umc.training.global.entity.apiPayload.code;
+package com.umc.training.global.apiPayload.code;
 
 import org.springframework.http.HttpStatus;
 
@@ -18,7 +18,10 @@ public enum GeneralErrorCode implements BaseErrorCode {
             "요청한 리소스를 찾을 수 없습니다."),
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR,
             "COMMON500_1",
-            "서버에 오류가 발생했습니다.")
+            "서버에 오류가 발생했습니다."),
+    VALID_FAIL(HttpStatus.BAD_REQUEST,
+            "COMMON400_2",
+            "유효성 검사에 실패했습니다.")
     ;
 
     private final HttpStatus status;

@@ -1,8 +1,7 @@
 package com.umc.training.domain.review;
 
 import com.umc.training.domain.review.dto.response.ReviewResponseDTO;
-import com.umc.training.global.entity.apiPayload.ApiResponse;
-import lombok.NoArgsConstructor;
+import com.umc.training.global.apiPayload.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

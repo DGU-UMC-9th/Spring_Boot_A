@@ -1,7 +1,6 @@
 package com.umc.training.domain.member.entity.exception.code;
 
-import com.umc.training.global.entity.apiPayload.code.BaseErrorCode;
-import com.umc.training.global.entity.apiPayload.exception.GeneralException;
+import com.umc.training.global.apiPayload.code.BaseErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
