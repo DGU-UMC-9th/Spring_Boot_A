@@ -1,6 +1,7 @@
 package com.umc.training.domain.review;
 
 import com.umc.training.domain.review.dto.response.ReviewResponseDTO;
+import com.umc.training.global.entity.apiPayload.ApiResponse;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,12 +19,13 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @GetMapping
-    public List<ReviewResponseDTO> getMyReview(
-            @RequestParam String query,
-            @RequestParam String type
+    public ApiResponse<List<ReviewResponseDTO>> getMyReview(
+            @RequestParam("userId") Long userId,
+            @RequestParam("query") String query,
+            @RequestParam("type") String type
     ) {
 
-        return reviewService.getMyReview(query, type);
+        return ApiResponse.onSuccess(reviewService.getMyReview(userId, query, type));
     }
 
 }

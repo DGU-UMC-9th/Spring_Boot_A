@@ -1,0 +1,43 @@
+package com.umc.training.global.entity.apiPayload.code;
+
+import org.springframework.http.HttpStatus;
+
+public enum GeneralSuccessCode implements BaseSuccessCode {
+
+
+    OK(HttpStatus.OK,
+            "COMMON200_1",
+            "요청이 성공적으로 처리되었습니다."),
+    CREATED(HttpStatus.CREATED,
+            "COMMON201_1",
+            "리소스가 성공적으로 생성되었습니다."),
+    NO_CONTENT(HttpStatus.NO_CONTENT,
+            "COMMON204_1",
+            "요청이 성공적으로 처리되었으며, 반환할 콘텐츠가 없습니다."),
+    ACCEPTED(HttpStatus.ACCEPTED,
+            "COMMON202_1",
+            "요청이 접수되었으며, 처리 중입니다.");
+
+    private final HttpStatus status;
+    private final String code;
+    private final String message;
+
+    public HttpStatus getStatus() {
+        return this.status;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    GeneralSuccessCode (HttpStatus status, String code, String message) {
+        this.status = status;
+        this.code = code;
+        this.message = message;
+    }
+
+}
