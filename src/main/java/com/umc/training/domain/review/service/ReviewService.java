@@ -15,6 +15,8 @@ import com.umc.training.domain.store.repository.StoreRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,6 +46,19 @@ public class ReviewService {
                 .map(ReviewResponseDTO::new)
                 .toList();
 
+    }
+
+    @Transactional(readOnly = true)
+    public List<ReviewResponseDTO> getMyReviewList(Long userId, int page, int size) {
+        if (!memberRepository.existsById(userId)) {
+            throw new MemberException(MemberBaseCode.MEMBER_NOT_FOUND);
+        }
+
+        List<Review> reviewList = reviewRepository.findAllByMemberId(userId, PageRequest.of(page, size));
+
+        return reviewList.stream()
+                .map(ReviewResponseDTO::new)
+                .toList();
     }
 
     @Transactional

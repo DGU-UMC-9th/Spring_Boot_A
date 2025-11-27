@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/stores")
-public class StoreController {
+public class StoreController implements StoreControllerDocs {
 
     private final StoreService storeService;
 
-    // 특정 지역에 가게 추가하기
+    @Override
     @PostMapping("/region/{regionId}")
     public ApiResponse<Void> addStore(
             @PathVariable("regionId") Long regionId,

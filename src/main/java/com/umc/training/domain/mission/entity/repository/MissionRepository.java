@@ -9,54 +9,51 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface MissionRepository extends Repository<Mission, Long> {
-    
-    Optional<Mission> findById(Long id);
 
+        Optional<Mission> findById(Long id);
 
-    // 미션 3
-    @Query(
-            value = "SELECT m " +
-                    "FROM MemberMission m " +
-                    "left join fetch Mission " +
-                    "where m.member.id = :member " +
-                    "AND m.status IN (" +
-                    "com.umc.training.domain.mission.entity.enums.MissionStatus.IN_PROGRESS, " +
-                    "com.umc.training.domain.mission.entity.enums.MissionStatus.IN_THE_WORKS" +
-                    ") " +
-                    "order by m.createdAt DESC",
-            countQuery = "SELECT COUNT(m) " +
-                    "FROM MemberMission m " +
-                    "WHERE m.member = :member " +
-                    "AND m.status IN (" +
-                    "com.umc.training.domain.mission.entity.enums.MissionStatus.IN_PROGRESS, " +
-                    "com.umc.training.domain.mission.entity.enums.MissionStatus.IN_THE_WORKS" +
-                    ")"
+        List<Mission> findByStoreId(Long storeId, Pageable pageable);
 
-    )
-    Page<MemberMission> findMissionInProgressOrCompletedByMember(
-            @Param("member") Member member, Pageable pageable);
+        // 미션 3
+        @Query(value = "SELECT m " +
+                        "FROM MemberMission m " +
+                        "left join fetch Mission " +
+                        "where m.member.id = :member " +
+                        "AND m.status IN (" +
+                        "com.umc.training.domain.mission.entity.enums.MissionStatus.IN_PROGRESS, " +
+                        "com.umc.training.domain.mission.entity.enums.MissionStatus.IN_THE_WORKS" +
+                        ") " +
+                        "order by m.createdAt DESC", countQuery = "SELECT COUNT(m) " +
+                                        "FROM MemberMission m " +
+                                        "WHERE m.member = :member " +
+                                        "AND m.status IN (" +
+                                        "com.umc.training.domain.mission.entity.enums.MissionStatus.IN_PROGRESS, " +
+                                        "com.umc.training.domain.mission.entity.enums.MissionStatus.IN_THE_WORKS" +
+                                        ")"
 
+        )
+        Page<MemberMission> findMissionInProgressOrCompletedByMember(
+                        @Param("member") Member member, Pageable pageable);
 
-    @Query(
-            value = "SELECT m " +
-                    "FROM MemberMission m " +
-                    "left join fetch Store s " +
-                    "left join fetch Mission " +
-                    "WHERE s.region.id = :region_id " +
-                    "AND m.member.id IS NULL " +
-                    "AND m.status = com.umc.training.domain.mission.entity.enums.MissionStatus.IN_THE_WORKS " +
-                    "ORDER BY m.createdAt DESC",
+        @Query(value = "SELECT m " +
+                        "FROM MemberMission m " +
+                        "left join fetch Store s " +
+                        "left join fetch Mission " +
+                        "WHERE s.region.id = :region_id " +
+                        "AND m.member.id IS NULL " +
+                        "AND m.status = com.umc.training.domain.mission.entity.enums.MissionStatus.IN_THE_WORKS " +
+                        "ORDER BY m.createdAt DESC",
 
-            countQuery = "SELECT COUNT(m) " +
-                    "FROM MemberMission m " +
-                    "LEFT JOIN m.store s " +
-                    "WHERE s.region.id = :region_id " +
-                    "AND m.member IS NULL " +
-                    "AND m.status = com.umc.training.domain.mission.entity.enums.MissionStatus.IN_THE_WORKS"
-    )
-    Page<MemberMission> findChallengingMissionByMember(
-            @Param("region_id") Long region_id, Pageable pageable);
+                        countQuery = "SELECT COUNT(m) " +
+                                        "FROM MemberMission m " +
+                                        "LEFT JOIN m.store s " +
+                                        "WHERE s.region.id = :region_id " +
+                                        "AND m.member IS NULL " +
+                                        "AND m.status = com.umc.training.domain.mission.entity.enums.MissionStatus.IN_THE_WORKS")
+        Page<MemberMission> findChallengingMissionByMember(
+                        @Param("region_id") Long region_id, Pageable pageable);
 }

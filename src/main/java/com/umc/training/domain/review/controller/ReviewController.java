@@ -19,10 +19,11 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/reviews")
-public class ReviewController {
+public class ReviewController implements ReviewControllerDocs {
 
     private final ReviewService reviewService;
 
+    @Override
     @GetMapping
     public ApiResponse<List<ReviewResponseDTO>> getMyReview(
             @RequestParam("userId") Long userId,
@@ -32,7 +33,17 @@ public class ReviewController {
         return ApiResponse.onSuccess(reviewService.getMyReview(userId, query, type));
     }
 
-    // 가게에 리뷰 추가하기
+    @Override
+    @GetMapping("/user/{userId}")
+    public ApiResponse<List<ReviewResponseDTO>> getMyReviewList(
+            @PathVariable("userId") Long userId,
+            @RequestParam("page") int page,
+            @RequestParam("size") int size) {
+
+        return ApiResponse.onSuccess(reviewService.getMyReviewList(userId, page, size));
+    }
+
+    @Override
     @PostMapping("/store/{storeId}/user/{userId}")
     public ApiResponse<Void> addReview(
             @PathVariable("storeId") Long storeId,
