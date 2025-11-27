@@ -64,4 +64,31 @@ public class MissionConverter {
                 .startedAt(memberMission.getCreatedAt())
                 .build();
     }
+
+    // Page<Mission> -> MissionPreViewListDTO
+    public static MissionResponseDTO.MissionPreViewListDTO toMissionPreViewListDTO(Page<Mission> missionPage) {
+        List<MissionResponseDTO.MissionPreViewDTO> missionList = missionPage.getContent().stream()
+                .map(MissionConverter::toMissionPreViewDTO)
+                .toList();
+
+        return MissionResponseDTO.MissionPreViewListDTO.builder()
+                .missionList(missionList)
+                .listSize(missionPage.getSize())
+                .totalPage(missionPage.getTotalPages())
+                .totalElements(missionPage.getTotalElements())
+                .isFirst(missionPage.isFirst())
+                .isLast(missionPage.isLast())
+                .build();
+    }
+
+    // Mission -> MissionPreViewDTO
+    public static MissionResponseDTO.MissionPreViewDTO toMissionPreViewDTO(Mission mission) {
+        return MissionResponseDTO.MissionPreViewDTO.builder()
+                .missionId(mission.getId())
+                .storeName(mission.getStore().getName())
+                .missionContent(mission.getContent())
+                .point(mission.getPoint())
+                .deadline(mission.getDeadline())
+                .build();
+    }
 }
