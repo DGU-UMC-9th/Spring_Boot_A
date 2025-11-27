@@ -76,4 +76,30 @@ public class MissionResponseDTO {
         Integer point;
         LocalDate deadline;
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MemberMissionPreViewListDTO {
+        List<MemberMissionPreViewDTO> missionList;
+        Integer listSize;
+        Integer totalPage;
+        Long totalElements;
+        Boolean isFirst;
+        Boolean isLast;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MemberMissionPreViewDTO {
+        Long memberMissionId;
+        String storeName;
+        String missionContent;
+        Integer point;
+        LocalDate deadline;
+        LocalDateTime startedAt;
+    }
 }

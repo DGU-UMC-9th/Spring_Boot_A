@@ -95,4 +95,24 @@ public class MissionController {
         MissionResponseDTO.MissionPreViewListDTO result = missionQueryService.getStoreMissions(storeId, page);
         return ApiResponse.of(SuccessStatus.MISSION_OK, result);
     }
+
+    @GetMapping("/my/challenging")
+    @Operation(summary = "내가 진행중인 미션 목록 조회", description = "내가 진행중인 미션 목록을 페이징하여 조회합니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "잘못된 요청"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "회원을 찾을 수 없음")
+    })
+    public ApiResponse<MissionResponseDTO.MemberMissionPreViewListDTO> getMyChallengingMissions(
+            @Parameter(description = "회원 ID", required = true)
+            @RequestParam Long memberId,
+
+            @Parameter(description = "페이지 번호 (1부터 시작)", required = false)
+            @RequestParam(defaultValue = "1")
+            @CheckPage
+            Integer page
+    ) {
+        MissionResponseDTO.MemberMissionPreViewListDTO result = missionQueryService.getMyChallengingMissions(memberId, page);
+        return ApiResponse.of(SuccessStatus.MISSION_OK, result);
+    }
 }
