@@ -23,6 +23,8 @@ public enum SuccessStatus implements BaseCode {
     // 미션 관련
     MISSION_OK(HttpStatus.OK, "MISSION200", "미션 조회 성공"),
 
+    MISSION_CREATED(HttpStatus.CREATED, "MISSION201", "미션 도전 성공."),
+
     // 홈 관련
     HOME_OK(HttpStatus.OK, "HOME200", "홈 화면 조회 성공"),
     ;

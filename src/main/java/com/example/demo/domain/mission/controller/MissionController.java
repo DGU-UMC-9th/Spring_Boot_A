@@ -3,9 +3,13 @@ package com.example.demo.domain.mission.controller;
 import com.example.demo.domain.member.entity.MemberMission;
 import com.example.demo.domain.mission.converter.MissionConverter;
 import com.example.demo.domain.mission.dto.MissionResponseDTO;
+import com.example.demo.domain.mission.service.MissionCommandService;
 import com.example.demo.domain.mission.service.MissionQueryService;
 import com.example.demo.global.apiPayload.ApiResponse;
 import com.example.demo.global.apiPayload.code.status.SuccessStatus;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,19 +18,18 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/missions")
+@Tag(name = "미션 API", description = "미션 관련 API")
 public class MissionController {
 
     private final MissionQueryService missionQueryService;
+    private final MissionCommandService missionCommandService;
 
-    /**
-     * 진행중인 미션 조회
-     * GET /api/missions/{memberId}/challenging?page=0&size=10
-     */
     @GetMapping("/{memberId}/challenging")
+    @Operation(summary = "진행중인 미션 조회", description = "회원의 진행중인 미션을 조회합니다.")
     public ApiResponse<MissionResponseDTO.MissionListDTO> getChallengingMissions(
-            @PathVariable Long memberId,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @Parameter(description = "회원 ID", required = true) @PathVariable Long memberId,
+            @Parameter(description = "페이지 번호") @RequestParam(defaultValue = "0") int page,
+            @Parameter(description = "페이지 크기") @RequestParam(defaultValue = "10") int size
     ) {
         Page<MemberMission> missions = missionQueryService.getChallengingMissions(
                 memberId,
@@ -38,15 +41,12 @@ public class MissionController {
         );
     }
 
-    /**
-     * 완료한 미션 조회
-     * GET /api/missions/{memberId}/completed?page=0&size=10
-     */
     @GetMapping("/{memberId}/completed")
+    @Operation(summary = "완료한 미션 조회", description = "회원이 완료한 미션을 조회합니다.")
     public ApiResponse<MissionResponseDTO.MissionListDTO> getCompletedMissions(
-            @PathVariable Long memberId,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @Parameter(description = "회원 ID", required = true) @PathVariable Long memberId,
+            @Parameter(description = "페이지 번호") @RequestParam(defaultValue = "0") int page,
+            @Parameter(description = "페이지 크기") @RequestParam(defaultValue = "10") int size
     ) {
         Page<MemberMission> missions = missionQueryService.getCompletedMissions(
                 memberId,
@@ -55,6 +55,20 @@ public class MissionController {
         return ApiResponse.of(
                 SuccessStatus.MISSION_OK,
                 MissionConverter.toMissionListDTO(missions)
+        );
+    }
+
+    // 미션 도전하기
+    @PostMapping("/{missionId}/challenge")
+    @Operation(summary = "미션 도전하기", description = "특정 미션에 도전합니다.")
+    public ApiResponse<MissionResponseDTO.ChallengeResultDTO> challengeMission(
+            @Parameter(description = "회원 ID", required = true) @RequestParam Long memberId,
+            @Parameter(description = "미션 ID", required = true) @PathVariable Long missionId
+    ) {
+        MissionResponseDTO.ChallengeResultDTO result = missionCommandService.challengeMission(memberId, missionId);
+        return ApiResponse.of(
+                SuccessStatus.MISSION_CREATED,
+                result
         );
     }
 }

@@ -2,6 +2,7 @@ package com.example.demo.domain.review.converter;
 
 import com.example.demo.domain.review.dto.ReviewResponseDTO;
 import com.example.demo.domain.review.entity.Review;
+import com.example.demo.domain.review.entity.ReviewImage;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -42,5 +43,19 @@ public class ReviewConverter {
                 .reviews(reviewList)
                 .pageInfo(pageInfo)
                 .build();
+    }
+
+    // 이미지 변환 메서드
+    public static List<ReviewImage> toReviewImageList(List<String> imageUrls, Review review) {
+        if (imageUrls == null || imageUrls.isEmpty()) {
+            return List.of();
+        }
+
+        return imageUrls.stream()
+                .map(url -> ReviewImage.builder()
+                        .photoUrl(url)
+                        .review(review)
+                        .build())
+                .collect(Collectors.toList());
     }
 }

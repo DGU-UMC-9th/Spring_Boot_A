@@ -8,6 +8,15 @@ import com.example.demo.domain.review.service.ReviewCommandService;
 import com.example.demo.domain.review.service.ReviewQueryService;
 import com.example.demo.global.apiPayload.ApiResponse;
 import com.example.demo.global.apiPayload.code.status.SuccessStatus;
+
+// Swagger Annotations (springdoc)
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+// Validation
+import jakarta.validation.Valid;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,20 +25,18 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/reviews")
+@Tag(name = "리뷰 API", description = "리뷰 관련 API")
 public class ReviewController {
 
     private final ReviewCommandService reviewCommandService;
     private final ReviewQueryService reviewQueryService;
 
-    /**
-     * 리뷰 작성
-     * POST /api/reviews?memberId=1&storeId=5
-     */
     @PostMapping
+    @Operation(summary = "리뷰 작성", description = "가게에 리뷰를 작성합니다. 이미지는 선택사항입니다.")
     public ApiResponse<ReviewResponseDTO.CreateResultDTO> createReview(
-            @RequestParam Long memberId,
-            @RequestParam Long storeId,
-            @RequestBody ReviewRequestDTO.CreateReviewDTO request
+            @Parameter(description = "회원 ID", required = true) @RequestParam Long memberId,
+            @Parameter(description = "가게 ID", required = true) @RequestParam Long storeId,
+            @Valid @RequestBody ReviewRequestDTO.CreateReviewDTO request
     ) {
         Review review = reviewCommandService.createReview(memberId, storeId, request);
         return ApiResponse.of(
@@ -38,18 +45,15 @@ public class ReviewController {
         );
     }
 
-    /**
-     * 내가 작성한 리뷰 조회 (QueryDSL 동적 쿼리)
-     * GET /api/reviews/my?memberId=1&storeId=5&minStar=4.0&maxStar=5.0&page=0&size=10
-     */
     @GetMapping("/my")
+    @Operation(summary = "내 리뷰 조회", description = "내가 작성한 리뷰를 조회합니다.")
     public ApiResponse<ReviewResponseDTO.ReviewListDTO> getMyReviews(
-            @RequestParam Long memberId,
-            @RequestParam(required = false) Long storeId,
-            @RequestParam(required = false) Float minStar,
-            @RequestParam(required = false) Float maxStar,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @Parameter(description = "회원 ID", required = true) @RequestParam Long memberId,
+            @Parameter(description = "가게 ID") @RequestParam(required = false) Long storeId,
+            @Parameter(description = "최소 별점") @RequestParam(required = false) Float minStar,
+            @Parameter(description = "최대 별점") @RequestParam(required = false) Float maxStar,
+            @Parameter(description = "페이지 번호") @RequestParam(defaultValue = "0") int page,
+            @Parameter(description = "페이지 크기") @RequestParam(defaultValue = "10") int size
     ) {
         Page<Review> reviews = reviewQueryService.getMyReviews(
                 memberId,
