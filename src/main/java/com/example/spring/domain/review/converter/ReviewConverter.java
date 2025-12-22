@@ -1,5 +1,6 @@
 package com.example.spring.domain.review.converter;
 
+import com.example.spring.domain.review.dto.req.ReviewReqDTO;
 import com.example.spring.domain.review.dto.res.ReviewResDTO;
 import com.example.spring.domain.review.entity.Review;
 
@@ -35,6 +36,26 @@ public class ReviewConverter {
     ) {
         return ReviewResDTO.SearchMyReviewDTO.builder()
                 .reviews(reviews)
+                .build();
+    }
+
+    // ReviewReqDTO.WriteDTO -> Review 엔티티
+    public static Review toReview(
+            ReviewReqDTO.WriteDTO dto
+    ) {
+        return Review.builder()
+                .rating(dto.rating())
+                .comment(dto.comment())
+                .build();
+    }
+
+    // Review 엔티티 -> ReviewResDTO.WriteDTO
+    public static ReviewResDTO.WriteDTO toWriteDTO(
+            Review review
+    ) {
+        return ReviewResDTO.WriteDTO.builder()
+                .id(review.getId())
+                .createdAt(review.getCreatedAt())
                 .build();
     }
 }

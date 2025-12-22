@@ -30,7 +30,7 @@ public class Review extends BaseEntity {
     // @Column: DB의 속성 의미
     // NOT NULL 설정, 글자수 제한 등 세부 설정
     @Column(name = "rating", nullable = false)
-    private Long rating;
+    private Integer rating;
 
     @Column(name = "comment", length = 100, nullable = false)
     private String comment;
