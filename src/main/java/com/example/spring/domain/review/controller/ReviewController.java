@@ -5,7 +5,7 @@ import com.example.spring.domain.review.dto.req.ReviewReqDTO;
 import com.example.spring.domain.review.dto.res.ReviewResDTO;
 import com.example.spring.domain.review.exception.code.ReviewSuccessCode;
 import com.example.spring.domain.review.service.command.ReviewCommandService;
-import com.example.spring.domain.review.service.query.ReviewQueryService;
+import com.example.spring.domain.review.service.query.ReviewQueryServiceImpl;
 import com.example.spring.global.apiPayload.ApiResponse;
 import com.example.spring.global.apiPayload.code.GeneralSuccessCode;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +16,9 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/reviews")
-public class ReviewController {
+public class ReviewController implements ReviewControllerDocs {
 
-    private final ReviewQueryService reviewQueryService;
+    private final ReviewQueryServiceImpl reviewQueryService;
     private final ReviewCommandService reviewCommandService;
 
     // 내가 작성한 리뷰 검색 API
@@ -26,7 +26,7 @@ public class ReviewController {
     public ApiResponse<ReviewResDTO.SearchMyReviewDTO> searchMyReview(
             @RequestParam Long memberId,
             @RequestParam(required = false) Long storeId,
-            @RequestParam(required = false) Integer rating
+            @RequestParam(required = false) Long rating
     ) {
         // 1) 서비스에서 DTO 리스트 조회
         List<ReviewResDTO.ReviewDTO> reviews =
@@ -46,5 +46,16 @@ public class ReviewController {
     ) {
         return ApiResponse.onSuccess(ReviewSuccessCode.WRITE,
                 reviewCommandService.writeReview(dto));
+    }
+
+    // 가게의 리뷰 목록 조회
+    @GetMapping
+    public ApiResponse<ReviewResDTO.ReviewPreViewListDTO> getReviews(
+            @RequestParam String storeName,
+            @RequestParam(defaultValue = "1") Integer page
+    ){
+
+        ReviewSuccessCode code = ReviewSuccessCode.FOUND;
+        return ApiResponse.onSuccess(code, reviewQueryService.findReview(storeName, page));
     }
 }

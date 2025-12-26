@@ -3,7 +3,9 @@ package com.example.spring.domain.review.converter;
 import com.example.spring.domain.review.dto.req.ReviewReqDTO;
 import com.example.spring.domain.review.dto.res.ReviewResDTO;
 import com.example.spring.domain.review.entity.Review;
+import org.springframework.data.domain.Page;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,6 +58,34 @@ public class ReviewConverter {
         return ReviewResDTO.WriteDTO.builder()
                 .id(review.getId())
                 .createdAt(review.getCreatedAt())
+                .build();
+    }
+
+    // result -> DTO
+    public static ReviewResDTO.ReviewPreViewListDTO toReviewPreviewListDTO(
+            Page<Review> result
+    ){
+        return ReviewResDTO.ReviewPreViewListDTO.builder()
+                .reviewList(result.getContent().stream()
+                        .map(ReviewConverter::toReviewPreviewDTO)
+                        .toList()
+                )
+                .listSize(result.getSize())
+                .totalPage(result.getTotalPages())
+                .totalElements(result.getTotalElements())
+                .isFirst(result.isFirst())
+                .isLast(result.isLast())
+                .build();
+    }
+
+    public static ReviewResDTO.ReviewPreViewDTO toReviewPreviewDTO(
+            Review review
+    ){
+        return ReviewResDTO.ReviewPreViewDTO.builder()
+                .ownerNickname(review.getMember().getName())
+                .score(review.getRating())
+                .body(review.getComment())
+                .createdAt(LocalDate.from(review.getCreatedAt()))
                 .build();
     }
 }
