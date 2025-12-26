@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Repository
 public interface MemberMissionRepository extends JpaRepository<MemberMission, Long> {
@@ -48,6 +50,13 @@ public interface MemberMissionRepository extends JpaRepository<MemberMission, Lo
             @Param("memberId") Long memberId,
             @Param("region") com.example.demo.global.enums.Region region
     );
+
+    // 진행 중인 미션 목록 조회
+    @Query("SELECT mm FROM MemberMission mm " +
+            "WHERE mm.member.id = :memberId " +
+            "AND mm.isComplete = false " +
+            "ORDER BY mm.createdAt DESC")
+    Page<MemberMission> findChallengingMissions(@Param("memberId") Long memberId, Pageable pageable);
 
     // 중복 도전 체크 (미완료 상태)
     boolean existsByMemberAndMissionAndIsCompleteFalse(Member member, Mission mission);

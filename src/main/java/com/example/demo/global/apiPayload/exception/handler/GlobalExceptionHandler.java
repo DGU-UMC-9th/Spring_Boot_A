@@ -5,11 +5,14 @@ import com.example.demo.global.apiPayload.code.status.ErrorStatus;
 import com.example.demo.global.apiPayload.exception.GeneralException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,5 +53,22 @@ public class GlobalExceptionHandler {
                 ErrorStatus.INTERNAL_SERVER_ERROR,
                 e.getMessage()
         );
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ApiResponse<Map<String, String>>> handleConstraintViolationException(
+            ConstraintViolationException e
+    ) {
+        Map<String, String> errors = new HashMap<>();
+
+        for (ConstraintViolation<?> violation : e.getConstraintViolations()) {
+            String propertyPath = violation.getPropertyPath().toString();
+            String message = violation.getMessage();
+            errors.put(propertyPath, message);
+        }
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.onFailure(ErrorStatus.INVALID_PAGE, errors));
     }
 }

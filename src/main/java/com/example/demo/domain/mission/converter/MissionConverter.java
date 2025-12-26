@@ -64,4 +64,60 @@ public class MissionConverter {
                 .startedAt(memberMission.getCreatedAt())
                 .build();
     }
+
+    // Page<Mission> -> MissionPreViewListDTO
+    public static MissionResponseDTO.MissionPreViewListDTO toMissionPreViewListDTO(Page<Mission> missionPage) {
+        List<MissionResponseDTO.MissionPreViewDTO> missionList = missionPage.getContent().stream()
+                .map(MissionConverter::toMissionPreViewDTO)
+                .toList();
+
+        return MissionResponseDTO.MissionPreViewListDTO.builder()
+                .missionList(missionList)
+                .listSize(missionPage.getSize())
+                .totalPage(missionPage.getTotalPages())
+                .totalElements(missionPage.getTotalElements())
+                .isFirst(missionPage.isFirst())
+                .isLast(missionPage.isLast())
+                .build();
+    }
+
+    // Mission -> MissionPreViewDTO
+    public static MissionResponseDTO.MissionPreViewDTO toMissionPreViewDTO(Mission mission) {
+        return MissionResponseDTO.MissionPreViewDTO.builder()
+                .missionId(mission.getId())
+                .storeName(mission.getStore().getName())
+                .missionContent(mission.getContent())
+                .point(mission.getPoint())
+                .deadline(mission.getDeadline())
+                .build();
+    }
+
+    // Page<MemberMission> -> MemberMissionPreViewListDTO
+    public static MissionResponseDTO.MemberMissionPreViewListDTO toMemberMissionPreViewListDTO(Page<MemberMission> memberMissionPage) {
+        List<MissionResponseDTO.MemberMissionPreViewDTO> missionList = memberMissionPage.getContent().stream()
+                .map(MissionConverter::toMemberMissionPreViewDTO)
+                .toList();
+
+        return MissionResponseDTO.MemberMissionPreViewListDTO.builder()
+                .missionList(missionList)
+                .listSize(memberMissionPage.getSize())
+                .totalPage(memberMissionPage.getTotalPages())
+                .totalElements(memberMissionPage.getTotalElements())
+                .isFirst(memberMissionPage.isFirst())
+                .isLast(memberMissionPage.isLast())
+                .build();
+    }
+
+    // MemberMission -> MemberMissionPreViewDTO
+    public static MissionResponseDTO.MemberMissionPreViewDTO toMemberMissionPreViewDTO(MemberMission memberMission) {
+        Mission mission = memberMission.getMission();
+        return MissionResponseDTO.MemberMissionPreViewDTO.builder()
+                .memberMissionId(memberMission.getId())
+                .storeName(mission.getStore().getName())
+                .missionContent(mission.getContent())
+                .point(mission.getPoint())
+                .deadline(mission.getDeadline())
+                .startedAt(memberMission.getCreatedAt())
+                .build();
+    }
 }

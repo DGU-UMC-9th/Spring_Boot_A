@@ -7,11 +7,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long>, ReviewRepositoryCustom {
 
-    // 기존 메서드들
     Page<Review> findByMemberOrderByCreatedAtDesc(Member member, Pageable pageable);
     Page<Review> findByStoreOrderByCreatedAtDesc(Store store, Pageable pageable);
+    Page<Review> findAllByMember(Member member, PageRequest pageRequest);
 }
