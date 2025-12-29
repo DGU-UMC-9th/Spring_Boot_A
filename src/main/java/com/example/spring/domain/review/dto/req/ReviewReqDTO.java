@@ -10,6 +10,6 @@ public class ReviewReqDTO {
             Long storeId,
             String comment,
             @NotNull
-            Integer rating
+            Long rating
     ){}
 }
